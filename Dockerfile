@@ -1,6 +1,6 @@
 FROM openjdk:11-jdk-slim
 
-# نصب وابستگی‌های لازم
+# نصب ابزارهای مورد نیاز
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -10,12 +10,12 @@ RUN apt-get update && apt-get install -y \
 # تنظیم دایرکتوری کاری
 WORKDIR /app
 
-# کلون کردن مخزن Grobid
+# کلون کردن مخزن Grobid و ساخت پروژه
 RUN git clone https://github.com/kermitt2/grobid.git . && \
     ./gradlew clean install
 
-# اکسپوز کردن پورت پیش‌فرض Grobid
+# اکسپوز کردن پورت پیش‌فرض
 EXPOSE 8070
 
-# فرمان برای اجرای سرویس Grobid
-CMD ["./gradlew", "run"]
+# اجرای مستقیم سرویس HTTP
+CMD ["java", "-Xmx1G", "-jar", "grobid-service/build/libs/grobid-service-onejar.jar", "server", "grobid-service/config/config.yaml"]
