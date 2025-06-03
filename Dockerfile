@@ -12,10 +12,11 @@ WORKDIR /app
 
 # کلون کردن مخزن Grobid و ساخت پروژه
 RUN git clone https://github.com/kermitt2/grobid.git . && \
-    ./gradlew clean install
+    ./gradlew clean install && \
+    ls -lh grobid-service/build/libs/
 
-# اکسپوز کردن پورت پیش‌فرض
+# اکسپوز کردن پورت پیش‌فرض GROBID
 EXPOSE 8070
 
-# اجرای مستقیم سرویس HTTP
-CMD ["java", "-Xmx1G", "-jar", "grobid-service/build/libs/grobid-service-onejar.jar", "server", "grobid-service/config/config.yaml"]
+# اجرای سرویس با JAR صحیح (پس از شناسایی نام دقیق فایل .jar)
+CMD ["java", "-Xmx1G", "-jar", "grobid-service/build/libs/grobid-service-all.jar", "server", "grobid-service/config/config.yaml"]
