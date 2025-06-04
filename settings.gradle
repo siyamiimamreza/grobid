@@ -3,4 +3,4 @@ include 'grobid-core'
 include 'grobid-service'
 include 'grobid-home'
 include 'grobid-trainer'
-
+include 'grobid-service'
