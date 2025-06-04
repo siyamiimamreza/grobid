@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.grobid'
+version '1.0'
+
+mainClassName = 'org.grobid.service.GrobidServiceApplication'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':grobid-core')
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    implementation 'ch.qos.logback:logback-classic:1.2.13'
+}
+
+jar {
+    manifest {
+        attributes(
+            'Main-Class': mainClassName
+        )
+    }
+}
