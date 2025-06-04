@@ -471,8 +471,13 @@ project(":grobid-trainer") {
         exclude("logback.xml")
 
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        manifest {
+            attributes(
+                'Main-Class': 'org.grobid.service.GrobidServiceApplication'
+        )
     }
-
+}
+  
     shadowJar {
         archiveClassifier = 'onejar'
         mergeServiceFiles()
