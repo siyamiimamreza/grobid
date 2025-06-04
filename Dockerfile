@@ -10,16 +10,16 @@ RUN apt-get update && apt-get install -y \
 # تنظیم دایرکتوری کاری
 WORKDIR /app
 
-# کلون کردن سورس کد و اجرای gradle task مورد نیاز
+# کلون کردن سورس کد و بیلد پروژه
 RUN git clone https://github.com/kermitt2/grobid.git . && \
     ./gradlew clean && \
-    ./gradlew grobid-service:onejar
+    ./gradlew grobid-service:jar
 
-# نمایش فایل تولید شده
+# بررسی فایل jar ساخته‌شده
 RUN ls -lh grobid-service/build/libs/
 
-# اکسپوز کردن پورت
+# اکسپوز کردن پورت سرویس
 EXPOSE 8070
 
-# اجرای سرویس
-CMD ["java", "-Xmx1G", "-jar", "grobid-service/build/libs/grobid-service-onejar.jar", "server", "grobid-service/config/config.yaml"]
+# اجرای سرویس با jar ساخته‌شده
+CMD ["java", "-Xmx1G", "-jar", "grobid-service/build/libs/grobid-service.jar", "server", "grobid-service/config/config.yaml"]
