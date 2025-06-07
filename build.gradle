@@ -1,3 +1,4 @@
+import org.apache.tools.ant.taskdefs.condition.Os
 buildscript {
     repositories {
         mavenLocal()
@@ -204,12 +205,13 @@ subprojects {
             libraries += ";" + jepDir
         } else {
             throw new RuntimeException("Unsupported platform!")
-        }
+        }     
         if (JavaVersion.current().compareTo(JavaVersion.VERSION_1_8) > 0) {
             jvmArgs "--add-opens", "java.base/java.util.stream=ALL-UNNAMED",
             "--add-opens", "java.base/java.io=ALL-UNNAMED", "--add-opens", "java.xml/jdk.xml.internal=ALL-UNNAMED"
         }
-        systemProperty "java.library.path", "${System.getProperty('java.library.path')}:" + libraries
+        def separator = Os.isFamily(Os.FAMILY_WINDOWS) ? ";" : ":"
+        systemProperty "java.library.path", System.getProperty("java.library.path") + separator + libraries
     }
 }
 
