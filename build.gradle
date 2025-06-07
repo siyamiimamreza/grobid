@@ -197,10 +197,14 @@ subprojects {
             libraries = jepDir
             jepDir = rootProject.rootDir.getAbsolutePath() + "/grobid-home/lib/lin-64"
             libraries += ":" + jepDir
+        } else if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            def jepDir = rootProject.rootDir.getAbsolutePath() + "/grobid-home/lib/win-64/jep"
+            libraries = jepDir
+            jepDir = rootProject.rootDir.getAbsolutePath() + "/grobid-home/lib/win-64"
+            libraries += ";" + jepDir
         } else {
             throw new RuntimeException("Unsupported platform!")
         }
-
         if (JavaVersion.current().compareTo(JavaVersion.VERSION_1_8) > 0) {
             jvmArgs "--add-opens", "java.base/java.util.stream=ALL-UNNAMED",
             "--add-opens", "java.base/java.io=ALL-UNNAMED", "--add-opens", "java.xml/jdk.xml.internal=ALL-UNNAMED"
