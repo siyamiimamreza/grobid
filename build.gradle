@@ -205,6 +205,7 @@ subprojects {
             libraries += ";" + jepDir
         } else {
             throw new RuntimeException("Unsupported platform!")
+            println "Operating system not detected correctly. Detected family: ${System.getProperty('os.name')}"
         }     
         if (JavaVersion.current().compareTo(JavaVersion.VERSION_1_8) > 0) {
             jvmArgs "--add-opens", "java.base/java.util.stream=ALL-UNNAMED",
